@@ -8,8 +8,8 @@
 */
 //2导入
 import VueRouter from 'vue-router';
-// 3注册
 import Vue from 'vue'
+// 3注册
 Vue.use(VueRouter)
 import login from '@/views/login/login.vue'
 // 4实例化
