@@ -74,13 +74,26 @@ export default {
         rcode: "" //是	string	验证码
       },
       rules: {
-        avatar: [{ required: true, message: "必须填写", trigger: "change" }],
-        username: [{ required: true, message: "必须填写", trigger: "change" }],
-        email: [{ required: true, message: "必须填写", trigger: "change" }],
-        phone: [{ required: true, message: "必须填写", trigger: "change" }],
-        password: [{ required: true, message: "必须填写", trigger: "change" }],
-        code: [{ required: true, message: "必须填写", trigger: "change" }],
-        rcode: [{ required: true, message: "必须填写", trigger: "change" }]
+        avatar: [{ required: true, message: "请上传头像", trigger: "change" }],
+        username: [
+          { required: true, message: "请输入昵称", trigger: "change" },
+          { min: 6, max: 12, message: "账号为6-12位数字或者字符" }
+        ],
+        email: [{ required: true, message: "请输入邮箱", trigger: "change" }],
+        phone: [
+          { required: true, message: "请输入电话号码", trigger: "change" },
+          { min: 11, max: 11, message: "请输入正确电话号码" }
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "change" },
+          { min: 6, max: 12, message: "密码为6-12位" }
+        ],
+        code: [
+          { required: true, message: "请输入图形验证码", trigger: "change" }
+        ],
+        rcode: [
+          { required: true, message: "请输入手机验证码", trigger: "change" }
+        ]
       }
     };
   },
