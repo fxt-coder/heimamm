@@ -40,17 +40,22 @@
           <el-button class="btn" type="primary" @click="login">登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button class="btn" type="primary">注册</el-button>
+          <el-button class="btn" type="primary" @click="showRegister">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div class="right">
       <img src="@/assets/img/login_right.png" alt />
     </div>
+    <register ref="register"></register>
   </div>
 </template>
 <script>
+import register from "./register";
 export default {
+  components: {
+    register
+  },
   data() {
     return {
       form: {
@@ -62,11 +67,11 @@ export default {
       rules: {
         phone: [
           { required: "true", message: "请输入电话号码", trigger: "blur" },
-          { min: "3", max: "8", message: "请输入正确电话号码" }
+          { min: 11, max: 11, message: "请输入正确电话号码" }
         ],
         password: [
           { required: "true", message: "请输入密码", trigger: "blur" },
-          { min: "6", max: "12", message: "密码6-12位" }
+          { min: 6, max: 12, message: "密码6-12位" }
         ],
         code: [{ required: "true", message: "请输入验证码", trigger: "blur" }],
         isPass: [{ required: "true", message: "请勾选选项", trigger: "blur" }]
@@ -77,11 +82,14 @@ export default {
     login() {
       this.$refs.form.validate(result => {
         if (result) {
-          this.$message.success("正确");
+          this.$message.success("登录成功");
         } else {
-          this.$message.error("错误");
+          this.$message.error("请填写必填项目");
         }
       });
+    },
+    showRegister() {
+      this.$refs.register.isShow = true;
     }
   }
 };
