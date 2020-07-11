@@ -25,7 +25,7 @@
               <el-input v-model="form.code" prefix-icon="el-icon-key"></el-input>
             </el-col>
             <el-col :span="8">
-              <img class="img" src="@/assets/img/code.png" alt />
+              <img class="img" :src="codeURL"  alt />
             </el-col>
           </el-row>
         </el-form-item>
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      codeURL: process.env.VUE_APP_URL + "/captcha?type=login",
       form: {
         phone: "",
         password: "",
