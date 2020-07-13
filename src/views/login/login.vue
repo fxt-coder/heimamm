@@ -14,7 +14,7 @@
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
-            placeholder="请输入电话密码"
+            placeholder="请输入密码"
             prefix-icon="el-icon-lock"
             :show-password="true"
           ></el-input>
@@ -25,7 +25,7 @@
               <el-input v-model="form.code" prefix-icon="el-icon-key"></el-input>
             </el-col>
             <el-col :span="8">
-              <img class="img" :src="codeURL"  alt />
+              <img class="img" :src="codeURL" @click="changeCode" alt />
             </el-col>
           </el-row>
         </el-form-item>
@@ -80,6 +80,12 @@ export default {
     };
   },
   methods: {
+    //点击改变验证码
+    changeCode() {
+      this.codeURL =
+        process.env.VUE_APP_URL + "/captcha?type=sendsms&sdf=" + Date.now();
+    },
+    //登录按钮
     login() {
       this.$refs.form.validate(result => {
         if (result) {
@@ -89,6 +95,7 @@ export default {
         }
       });
     },
+    //注册按钮
     showRegister() {
       this.$refs.register.isShow = true;
     }
