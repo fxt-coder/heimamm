@@ -171,7 +171,7 @@ export default {
         })
           .then(res => {
             window.console.log(res);
-            this.$message.success(res.data.data.captcha + "");
+            this.$message.success(res.data.captcha + "");
           })
           .catch(res => {
             window.console.log(res);
@@ -190,7 +190,7 @@ export default {
           register(this.form)
             .then(res => {
               // window.console.log(res);
-              if (res.data.code == 200) {
+              if (res.code == 200) {
                 this.$message.success("注册成功");
                 this.isShow = false;
               }

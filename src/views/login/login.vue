@@ -14,7 +14,7 @@
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
-            placeholder="请输入密码"
+            placeholder="请输入电话密码"
             prefix-icon="el-icon-lock"
             :show-password="true"
           ></el-input>
@@ -52,6 +52,8 @@
 </template>
 <script>
 import register from "./register";
+import { toLogin } from "@/api/login.js";
+import { saveToken,getToken } from "@/utils/token.js";
 export default {
   components: {
     register
@@ -68,34 +70,65 @@ export default {
       rules: {
         phone: [
           { required: "true", message: "请输入电话号码", trigger: "blur" },
-          { min: 11, max: 11, message: "请输入正确电话号码" }
+          { min: 11, max: 11, message: "请输入正确电话号码" },
+          {
+            validator: (rule, value, callback) => {
+              let phone = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+              if (phone.test(value)) {
+                callback();
+              } else {
+                callback(new Error("请输入正确电话号码"));
+              }
+            }
+          }
         ],
         password: [
           { required: "true", message: "请输入密码", trigger: "blur" },
           { min: 6, max: 12, message: "密码6-12位" }
         ],
-        code: [{ required: "true", message: "请输入验证码", trigger: "blur" }],
-        isPass: [{ required: "true", message: "请勾选选项", trigger: "blur" }]
+        code: [
+          { required: "true", message: "请输入验证码", trigger: "blur" },
+          { min: 4, max: 4, message: "请输入四位数验证码", trigger: "change" }
+        ],
+        isPass: [
+          { required: "true", message: "请勾选协议", trigger: "blur" },
+          {
+            validator: (rule, value, callback) => {
+              if (value == true) {
+                callback();
+              } else {
+                callback(new Error("请勾选协议"));
+              }
+            },
+            trigger: "change"
+          }
+        ]
       }
     };
   },
+  created() {
+    if(getToken()){
+      this.$router.push("/layout")
+    }
+  },
   methods: {
-    //点击改变验证码
     changeCode() {
       this.codeURL =
-        process.env.VUE_APP_URL + "/captcha?type=sendsms&sdf=" + Date.now();
+        process.env.VUE_APP_URL + "/captcha?type=sendsms&wer" + Date.now();
     },
-    //登录按钮
     login() {
       this.$refs.form.validate(result => {
         if (result) {
-          this.$message.success("登录成功");
-        } else {
-          this.$message.error("请填写必填项目");
+          // this.$message.success("登录成功");
+          toLogin(this.form).then(res => {
+            this.$message.success("登录成功");
+            saveToken(res.data.token);
+            window.console.log(res.data.token);
+            this.$router.push("/layout");
+          });
         }
       });
     },
-    //注册按钮
     showRegister() {
       this.$refs.register.isShow = true;
     }
