@@ -8,12 +8,12 @@
         <li>
           <img class="img1" src="@/assets/img/layout-logo.png" style="height:20px" alt />
         </li>
-        <li class="t1">黑马面面</li>
+        <li class="t1">后台管理系统</li>
         <li class="null"></li>
         <li>
           <img class="img2" :src="baseUrl+'/'+userInfo.avatar" alt />
         </li>
-        <li class="t2">{{userInfo.username}}，您好</li>
+        <li class="t2">{{userInfo.username}}，欢迎回家</li>
         <li>
           <el-button @click="backLogin" class="button" type="primary">退出</el-button>
         </li>
@@ -24,26 +24,26 @@
         <el-menu
           :collapse="isCollapse"
           class="el-menu-vertical-demo"
-          :default-active="$router.path"
+          :default-active="$route.path"
           router
         >
-          <el-menu-item index="/layout/chart">
+          <el-menu-item index="/home/chart">
             <i class="el-icon-pie-chart"></i>
             <span slot="title">数据概览</span>
           </el-menu-item>
-          <el-menu-item index="/layout/userlist">
+          <el-menu-item index="/home/userlist">
             <i class="el-icon-user"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
-          <el-menu-item index="/layout/question">
+          <el-menu-item index="/home/question">
             <i class="el-icon-edit-outline"></i>
             <span slot="title">题库列表</span>
           </el-menu-item>
-          <el-menu-item index="/layout/business">
+          <el-menu-item index="/home/business">
             <i class="el-icon-office-building"></i>
             <span slot="title">企业列表</span>
           </el-menu-item>
-          <el-menu-item index="/layout/subject">
+          <el-menu-item index="/home/subject">
             <i class="el-icon-notebook-2"></i>
             <span slot="title">学科列表</span>
           </el-menu-item>
@@ -72,22 +72,34 @@ export default {
       // window.console.log(res);
       if (getToken()) {
         this.userInfo = res.data;
+      } else {
+        this.$router.push("/");
+        return;
       }
     });
   },
   methods: {
     backLogin() {
-      exitHome().then(() => {
-        removeToken();
-        this.$message.success("退出成功");
-        this.$router.push("/login");
-      });
+      this.$confirm("您确定要退出嘛", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          exitHome().then(() => {
+            removeToken();
+            this.$message.success("退出成功");
+            this.$router.push("/login");
+          });
+        })
+        .catch(() => {});
     }
   }
 };
 </script>
 
 <style lang='less' scoped>
+
 .layout {
   height: 100%;
   .header {

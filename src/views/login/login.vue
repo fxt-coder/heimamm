@@ -53,7 +53,7 @@
 <script>
 import register from "./register";
 import { toLogin } from "@/api/login.js";
-import { saveToken,getToken } from "@/utils/token.js";
+import { saveToken, getToken } from "@/utils/token.js";
 export default {
   components: {
     register
@@ -107,8 +107,8 @@ export default {
     };
   },
   created() {
-    if(getToken()){
-      this.$router.push("/layout")
+    if (getToken()) {
+      this.$router.push("/home");
     }
   },
   methods: {
@@ -123,8 +123,8 @@ export default {
           toLogin(this.form).then(res => {
             this.$message.success("登录成功");
             saveToken(res.data.token);
-            window.console.log(res.data.token);
-            this.$router.push("/layout");
+            // window.console.log(res.data.token);
+            this.$router.push("/home");
           });
         }
       });

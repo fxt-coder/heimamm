@@ -20,7 +20,7 @@ fetch.interceptors.response.use(function (response) {
   if (response.data.code == 200) {
     return response.data;
   } else if (response.data.code == 206) {
-    Message.error('请重新登录')
+    Message.error('请重新登录!')
     removeToken()
     router.push('/login')
     return Promise.reject("error")
@@ -28,6 +28,7 @@ fetch.interceptors.response.use(function (response) {
   else {
     // window.console.log(response.data.code);
     Message.error(response.data.message)
+    return Promise.reject("error")
   }
 }, function (error) {
   return Promise.reject(error)

@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "css-loader": "^3.6.0",
     "element-ui": "^2.13.2",
+    "nprogress": "^0.2.0",
     "postcss-loader": "^3.0.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",

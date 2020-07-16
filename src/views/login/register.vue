@@ -26,7 +26,7 @@
         <el-input v-model="form.phone"></el-input>
       </el-form-item>
       <el-form-item prop="password" label="密码">
-        <el-input v-model="form.password"></el-input>
+        <el-input v-model="form.password" :show-password="true"></el-input>
       </el-form-item>
       <el-form-item prop="code" label="图形码">
         <el-row>

@@ -9,6 +9,8 @@
 //2导入
 import VueRouter from 'vue-router';
 import Vue from 'vue'
+import NProgress from 'nprogress'
+import '@/nprogress/nprogress.css'
 // 3注册
 Vue.use(VueRouter)
 import login from '@/views/login/login.vue'
@@ -18,52 +20,88 @@ import userlist from '@/views/home/userlist/userlist.vue'
 import question from '@/views/home/question/question.vue'
 import business from '@/views/home/business/business.vue'
 import subject from '@/views/home/subject/subject.vue'
+
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
-
 // 4实例化
 const router = new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/layout'
+      redirect: '/login'
     },
     {
       path: '/login',
-      component: login
+      component: login,
+      meta: {
+        title: '登录'
+      }
     },
     {
       path: '/home',
-      redirect:'/home/subject',
+      redirect: '/home/chart',
       component: layout,
       children: [
         {
-          path: '/layout/chart',
-          component: chart
+          path: '/home/chart',
+          component: chart,
+          meta: {
+            title: '数据概览',
+            icon:'el-icon-pie-chart'
+          }
         },
         {
-          path: '/layout/userlist',
-          component: userlist
+          path: '/home/userlist',
+          component: userlist,
+          meta: {
+            title: '用户列表',
+            icon:'el-icon-user'
+          }
         },
         {
-          path: '/layout/question',
-          component: question
+          path: '/home/question',
+          component: question,
+          meta: {
+            title: '题库列表',
+            icon:'el-icon-edit-outline'
+          }
         },
         {
-          path: '/layout/business',
-          component: business
+          path: '/home/business',
+          component: business,
+          meta: {
+            title: '企业列表',
+            icon:'el-icon-office-building'
+          }
         },
         {
-          path: '/layout/subject',
-          component: subject
+          path: '/home/subject',
+          component: subject,
+          meta: {
+            title: '学科列表',
+            icon:'el-icon-notebook-2'
+          }
         }
       ]
     }
-
   ]
 })
+// 路由导航守卫
+router.beforeEach((to, from, next) => {
+  // window.console.log(to);
+  // window.console.log(from);
+  NProgress.start()
+  next()
+})
+router.afterEach((to) => {
+  NProgress.done()
+  window.console.log(to);
+  // window.console.log(from);
+  document.title = to.meta.title
+})
+
 // 1.
 // export{router}
 //export {名字} 与 import {名字} 两者要对应起来
