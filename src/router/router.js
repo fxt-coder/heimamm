@@ -49,7 +49,7 @@ const router = new VueRouter({
           component: chart,
           meta: {
             title: '数据概览',
-            icon:'el-icon-pie-chart'
+            icon: 'el-icon-pie-chart'
           }
         },
         {
@@ -57,7 +57,7 @@ const router = new VueRouter({
           component: userlist,
           meta: {
             title: '用户列表',
-            icon:'el-icon-user'
+            icon: 'el-icon-user'
           }
         },
         {
@@ -65,7 +65,7 @@ const router = new VueRouter({
           component: question,
           meta: {
             title: '题库列表',
-            icon:'el-icon-edit-outline'
+            icon: 'el-icon-edit-outline'
           }
         },
         {
@@ -73,7 +73,7 @@ const router = new VueRouter({
           component: business,
           meta: {
             title: '企业列表',
-            icon:'el-icon-office-building'
+            icon: 'el-icon-office-building'
           }
         },
         {
@@ -81,7 +81,7 @@ const router = new VueRouter({
           component: subject,
           meta: {
             title: '学科列表',
-            icon:'el-icon-notebook-2'
+            icon: 'el-icon-notebook-2'
           }
         }
       ]
@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
 })
 router.afterEach((to) => {
   NProgress.done()
-  window.console.log(to);
+  // window.console.log(to);
   // window.console.log(from);
   document.title = to.meta.title
 })
