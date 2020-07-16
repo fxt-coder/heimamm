@@ -6,8 +6,9 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 // import { router } from './router/index.js'
 import router from '@/router/router.js'
-
+import store from '@/store/store.js'
 new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')

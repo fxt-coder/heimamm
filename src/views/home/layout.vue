@@ -1,5 +1,5 @@
 <template>
-  <el-container class="layout" v-if="userInfo!=''">
+  <el-container class="layout" v-if="$store.state.userInfo!=''">
     <el-header class="header">
       <ul class="header-ul">
         <li>
@@ -11,9 +11,9 @@
         <li class="t1">后台管理系统</li>
         <li class="null"></li>
         <li>
-          <img class="img2" :src="baseUrl+'/'+userInfo.avatar" alt />
+          <img class="img2" :src="baseUrl+'/'+$store.state.userInfo.avatar" alt />
         </li>
-        <li class="t2">{{userInfo.username}}，欢迎回家</li>
+        <li class="t2">{{$store.state.userInfo.username}}，欢迎回家</li>
         <li>
           <el-button @click="backLogin" class="button" type="primary">退出</el-button>
         </li>
@@ -63,7 +63,6 @@ export default {
   data() {
     return {
       baseUrl: process.env.VUE_APP_URL,
-      userInfo: "",
       isCollapse: false
     };
   },
@@ -71,7 +70,8 @@ export default {
     getUserInfo().then(res => {
       // window.console.log(res);
       if (getToken()) {
-        this.userInfo = res.data;
+        // this.userInfo = res.data;
+        this.$store.state.userInfo = res.data;
       } else {
         this.$router.push("/");
         return;
@@ -99,7 +99,6 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 .layout {
   height: 100%;
   .header {
