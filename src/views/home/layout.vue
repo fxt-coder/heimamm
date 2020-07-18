@@ -13,7 +13,7 @@
         <li>
           <img class="img2" :src="baseUrl+'/'+$store.state.userInfo.avatar" alt />
         </li>
-        <li class="t2">{{$store.state.userInfo.username}}，欢迎回家</li>
+        <li class="t2">{{$store.state.userInfo.username}}，您好！</li>
         <li>
           <el-button @click="backLogin" class="button" type="primary">退出</el-button>
         </li>

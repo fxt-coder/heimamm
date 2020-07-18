@@ -12,4 +12,25 @@ function setSubjectStatus(data) {
     data
   })
 }
-export { sortSubjectList, setSubjectStatus }
+function addSubject(data) {
+  return fetch({
+    url: '/subject/add',
+    method: 'post',
+    data
+  })
+}
+function editSubject(data) {
+  return fetch({
+    url: '/subject/edit',
+    method: 'post',
+    data
+  })
+}
+function delSubject(data) {
+  return fetch({
+    url: '/subject/remove',
+    method: 'post',
+    data
+  })
+}
+export { sortSubjectList, setSubjectStatus, addSubject, editSubject, delSubject }
